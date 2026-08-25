@@ -12,6 +12,8 @@ namespace Workshop.Student
         public GameObject[] wallTiles;  
         public GameObject[] foodTiles;
         public GameObject[] Player;
+        public GameObject[] exit;
+        public GameObject[] obstacles;
 
         public string[,] saveItemMap = new string[3, 3] {
             { " ", "Soda", " "},
@@ -28,12 +30,22 @@ namespace Workshop.Student
         public void Start()
         {
             // 1. random player at the position <0, 0> map
+            int playerRandom = UnityEngine.Random.Range(0,Player.Length);
             Instantiate(Player[0], new Vector2(0,0), Quaternion.identity);
 
             // 2. create obstacles
+            int n_obstacles = UnityEngine.Random.Range(0, obstacles.Length);
+            int Y_obstacles_final = rows / 2;
+            int X_obstacles = columns / 2;
+            for (int Y_obstacles = 0; Y_obstacles < Y_obstacles_final; Y_obstacles++)
+            {
+                Instantiate(obstacles[n_obstacles], new Vector2(X_obstacles, Y_obstacles), Quaternion.identity);
+
+            }
+
 
             // 3. create floor
-            for(int y = 0; y< rows;y++)
+            for (int y = 0; y< rows;y++)
             {
                 for (int x = 0; x < columns; x++)
                 {
@@ -82,8 +94,7 @@ namespace Workshop.Student
                         {
                             if(foodTile.name == item)
                             {
-                                GameObject food = Instantiate(foodTile, new Vector2(x, y) , Quaternion.identity);
-                                food.name = "Food" +x + "_" + y;
+                                Instantiate(foodTile, new Vector2(x, y) , Quaternion.identity);
                                 break;
                             }
                         }
@@ -92,6 +103,9 @@ namespace Workshop.Student
             }
 
             // 7. place exit
+            int ExitX = columns - 1;
+            int ExitY = columns - 1;
+            Instantiate(exit[0], new Vector2(ExitX, ExitY), Quaternion.identity);
 
         }
     }
