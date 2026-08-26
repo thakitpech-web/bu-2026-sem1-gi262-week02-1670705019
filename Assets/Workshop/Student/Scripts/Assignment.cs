@@ -10,8 +10,8 @@ namespace Assignment
     {
         public void Start()
         {
-            AS01_RandomItemDrop();
-            // AS02_NestedLoopForCreate2DMap();
+            // AS01_RandomItemDrop();
+            AS02_NestedLoopForCreate2DMap();
             // AS03_NestedLoopForMakingWallAround();
             // AS04_AttackEnemy();
             // AS05_DynamicIterationLoop();
@@ -46,7 +46,9 @@ namespace Assignment
         public GameObject[] as01_items;
         public void AS01_RandomItemDrop()
         {
-            throw new NotImplementedException();
+            int randomItems = UnityEngine.Random.Range(0, as01_items.Length);
+            Instantiate(as01_items[randomItems], new Vector2(0,0), Quaternion.identity);
+            Debug.Log($"Got item: {as01_items[randomItems]}");
         }
 
         /*
@@ -108,7 +110,21 @@ namespace Assignment
         public int as02_rows;
         public void AS02_NestedLoopForCreate2DMap()
         {
-            throw new NotImplementedException();
+            string mapPattern = "";
+
+            for(int y = as02_rows - 1; y >= 0; y--)
+            {
+                for (int x = 0; x < as02_columns; x++)
+                {
+                    
+                    int randomIndex = UnityEngine.Random.Range(0, as02_floorTiles.Length);
+                    GameObject tilePrefab = as02_floorTiles[randomIndex];
+                    Instantiate(tilePrefab, new Vector2(x, y), transform.rotation);
+                    mapPattern += tilePrefab.name;
+                }
+                mapPattern += "\n";
+            }
+            Debug.Log(mapPattern);
         }
 
         /*
